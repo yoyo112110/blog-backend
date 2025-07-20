@@ -1,0 +1,101 @@
+#spring.application.name=blog
+#
+#server.port=8080
+#
+##spring.datasource.url=jdbc:mysql://localhost:3306/demo?serverTimezone=UTC // 数据库名称：demo
+#spring.datasource.url=jdbc:mysql://localhost:3306/demo?useSSL=false&serverTimezone=UTC&characterEncoding=utf8 // 数据库名称：demo
+#spring.datasource.username=root
+#spring.datasource.password=123456
+#spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+#
+## JPA配置
+## 显示sql
+#spring.jpa.show-sql=true
+## 格式化
+#spring.jpa.properties.hibernate.format_sql=true
+## 自动更新数据库表结构
+#spring.jpa.hibernate.ddl-auto=update
+#
+#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+### Thymeleaf配置
+##spring.thymeleaf.cache=false
+##spring.thymeleaf.mode=HTML
+##
+### 文件上传配置
+##spring.servlet.multipart.max-file-size=2MB
+##spring.servlet.multipart.max-request-size=2MB
+##
+### 日志配置
+##logging.level.com.example.blog=DEBUG
+
+# Server 配置
+server:
+  port: 8080 # 服务端口
+
+debug: true
+
+# 数据库配置
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/ksd_blog?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  web:
+    resources:
+      static-locations: classpath:static/,file:static/
+  devtools:
+    restart:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  mail:
+    host: smtp.qq.com
+    username: 2125818660@qq.com
+    password: bfhshspcdtnccdai
+    port: 465
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true         # 3. 必须启用 SSL
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+mybatis-plus:
+  type-aliases-package: com.ksd.blog.entity
+  configuration:
+    call-setters-on-nulls: false
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+#field-strategy: 0
+#banner: true
+#db-config:
+# id-type: uuid
+#logic-not-delete-value: 1
+#logic-delete-value: 1
+    banner: false
+    db-config:
+      id-type: assign_uuid
+      logic-not-delete-value: 1
+      logic-delete-value: 0
+#      field-strategy: not_null
+
+logging:
+  level:
+    root: info
